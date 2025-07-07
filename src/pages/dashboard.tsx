@@ -6,6 +6,7 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 import { Page } from "@/components/Page";
 import { User } from "@/lib/entities/users";
 import { createClient } from "@/lib/supabase/server-props";
+import { paths } from "@/lib/utils/paths";
 
 export default function Dashboard({ user }: { user: User }) {
   console.log("User data:", user);
@@ -34,7 +35,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (error || !data) {
     return {
       redirect: {
-        destination: "/auth/login",
+        destination: paths.auth.login,
         permanent: false,
       },
     };
