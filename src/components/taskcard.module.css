@@ -1,0 +1,32 @@
+.indicator {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: grey;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footnote {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    border: 2px solid;
+    border-color: #bcbdc4;
+    border-radius: 15px;
+    padding: 20px;
+    width: 500px;
+    display: flex;
+}

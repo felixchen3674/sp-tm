@@ -7,6 +7,7 @@ import { Page } from "@/components/Page";
 import { User } from "@/lib/entities/users";
 import { createClient } from "@/lib/supabase/server-props";
 import { paths } from "@/lib/utils/paths";
+import TaskCard from "@/components/TaskCard";
 
 export default function Dashboard({ user }: { user: User }) {
   console.log("User data:", user);
@@ -23,6 +24,8 @@ export default function Dashboard({ user }: { user: User }) {
         <h2>
           Welcome back, {user.firstName} {user.lastName}
         </h2>
+        {/* Developing only, delete later */}
+        <TaskCard />
       </div>
     </Page>
   );
