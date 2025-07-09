@@ -6,6 +6,8 @@ import { Avatar, Group, Text } from "@mantine/core";
 
 import { RootState } from "@/lib/redux";
 
+import Link from "next/link";
+
 export function UserIcons() {
   const user = useSelector((state: RootState) => state.user.currentUser);
 
@@ -14,19 +16,21 @@ export function UserIcons() {
       <Text size="sm" c="dimmed">
         Not logged in
       </Text>
-    ); // handle undefined state safely
+    ); 
   }
   return (
     <div>
       <Group wrap="nowrap">
+        <Link href="/account-info">
         <Avatar
           src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-2.png"
           size={94}
           radius="md"
         />
+        </Link>
         <div>
           <Text fz="lg" fw={500} className={classes.name}>
-            {user.firstName} {user.lastName}
+            {user.firstName} 
           </Text>
 
           <Group wrap="nowrap" gap={10} mt={3}>

@@ -15,6 +15,8 @@ export const User = z.object({
   lastName: z.string().min(1),
   username: z.string().min(1),
   avatarUrl: z.string().url().nullable(),
+  contactNumber: z.string(),
+  position: z.string(),
 });
 
 export type User = z.infer<typeof User>;
