@@ -1,16 +1,26 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
 import { Page } from "@/components/Page";
 import { User } from "@/lib/entities/users";
+import { AppDispatch } from "@/lib/redux";
+import { setUser } from "@/lib/redux/userSlice";
 import { createClient } from "@/lib/supabase/server-props";
 import { paths } from "@/lib/utils/paths";
 
 export default function Dashboard({ user }: { user: User }) {
   console.log("User data:", user);
+  const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    if (user) {
+      dispatch(setUser(user));
+    }
+  }, [dispatch, user]);
   return (
     <Page title="Dashboard">
       <Head>
