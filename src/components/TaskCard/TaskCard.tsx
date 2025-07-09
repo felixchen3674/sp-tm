@@ -4,6 +4,7 @@ import React from "react";
 
 import { TaskType } from "@/lib/entities/tasks";
 import Link from "next/link";
+import CardMenu from "./CardMenu";
 
 const TaskCard = ({ task }: { task: TaskType }) => {
   const { title, description, priority, status, created_at} = task;
@@ -39,7 +40,7 @@ const TaskCard = ({ task }: { task: TaskType }) => {
             : "No description"}
         </div>
         <div className={styles.footnote}>
-          {priority && (
+          <span className={styles.footnote_element}>{priority && (
             <span>
               Priority:{" "}
               <span
@@ -51,8 +52,8 @@ const TaskCard = ({ task }: { task: TaskType }) => {
                 {priority}
               </span>
             </span>
-          )}
-          {status && (
+          )}</span>
+          <span className={styles.footnote_element}>{status && (
             <span>
               Status:{" "}
               <span
@@ -62,12 +63,14 @@ const TaskCard = ({ task }: { task: TaskType }) => {
                 {status}
               </span>
             </span>
-          )}
+          )}</span>
+          
           <span className={styles.grey}>
             Created on: {created_at.split("T")[0]}
           </span>
         </div>
       </div>
+      <CardMenu task={task}/>
     </div>
     </Link>
   );
