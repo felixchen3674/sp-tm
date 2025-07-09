@@ -8,9 +8,22 @@ import { User } from "@/lib/entities/users";
 import { createClient } from "@/lib/supabase/server-props";
 import { paths } from "@/lib/utils/paths";
 import TaskCard from "@/components/TaskCard";
+import { TaskType } from "@/lib/entities/tasks";
 
 export default function Dashboard({ user }: { user: User }) {
   console.log("User data:", user);
+
+  // Developing only, delete later
+  const demo_task: TaskType = {
+    id: "1",
+    title: "Attend Nischal's Birthday Party",
+    description: "Buy gifts on the way and pick up cake from the bakery. (6 PM | Fresh Elements) Attend the party and have fun.",
+    created_at: new Date().toISOString(),
+    date: new Date().toISOString(),
+    status: "Not Started",
+    priority: "Moderate",
+    user_id: user.id,
+  };
 
   return (
     <Page title="Dashboard">
@@ -25,7 +38,7 @@ export default function Dashboard({ user }: { user: User }) {
           Welcome back, {user.firstName} {user.lastName}
         </h2>
         {/* Developing only, delete later */}
-        <TaskCard />
+        <TaskCard task={demo_task}/>
       </div>
     </Page>
   );
