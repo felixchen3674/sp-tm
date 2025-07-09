@@ -15,6 +15,7 @@ export default function TasksPage() {
         direction="row"
         wrap="nowrap">
         <MyTask />
+        {/* [todo] TaskDetail take a task card as prop, without a prop: the content is hidden */}
         <TaskDetail />
       </Flex>
       {/* <div>Tasks Page</div> */}
