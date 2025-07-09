@@ -20,13 +20,47 @@
     font-size: 12px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.green {
+    color: #05a301;
+}
+
+.blue {
+    color: #0225ff;
+}
+
+.red {
+    color: #f21e1e;
+}
+
+.cyan {
+    color: #3abeff;
+}
+
+.grey {
+    color: #808080;
 }
 
 .card {
     border: 2px solid;
     border-color: #bcbdc4;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 20px;
-    width: 500px;
     display: flex;
+    min-width: 400px;
+    max-width: 500px;
+    background-color: #f5f8ff;
+    transition: background-color 0.2s;
+}
+
+.card:hover {
+    background-color: #e7eaf1;
+    cursor: pointer;
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
 }
