@@ -1,10 +1,16 @@
+import { useState } from "react";
+
 import { Flex } from "@mantine/core";
 
-import MyTask from "@/components/Tasks/MyTask";
 import { Page } from "@/components/Page";
+import MyTask from "@/components/Tasks/MyTask";
 import TaskDetail from "@/components/Tasks/TaskDetail";
+import { TaskType } from "@/lib/entities/tasks";
 
 export default function TasksPage() {
+  const [selectedTask, setSelectedTask] = useState<TaskType | null>(null);
+  console.log(selectedTask);
+
   return (
     <Page title="Tasks">
       <Flex
@@ -14,12 +20,9 @@ export default function TasksPage() {
         align="flex-start"
         direction="row"
         wrap="nowrap">
-        <MyTask />
-        {/* [todo] TaskDetail take a task card as prop, without a prop: the content is hidden */}
-        <TaskDetail />
+        <MyTask onTaskSelect={setSelectedTask} />
+        <TaskDetail task={selectedTask} />
       </Flex>
-      {/* <div>Tasks Page</div> */}
-      {/* <div>10000 lines of code</div> */}
     </Page>
   );
 }

@@ -35,6 +35,7 @@
   max-width: 500px;
   transition: background-color 0.2s;
   flex-wrap: nowrap;
+  margin-bottom: 0.5em;
 }
 
 .card:hover {

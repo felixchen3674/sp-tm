@@ -5,18 +5,20 @@ import {
   Box,
   Button,
   Flex,
-  List,
   Paper,
   Text,
   Title,
   useMantineTheme,
 } from "@mantine/core";
 
-// [todo] TaskDetail should recieve a task-card comp prop
-// [todo] task-card prop is optional, without prop, hide the content in 2nd Flex
-export default function TaskDetail() {
+import { TaskType } from "@/lib/entities/tasks";
+
+interface TaskDeatilProps {
+  task: TaskType | null;
+}
+
+export default function TaskDetail({ task }: TaskDeatilProps) {
   const theme = useMantineTheme();
-  const flag = true;
 
   const handleDelete = () => {
     console.log("Delete function called");
@@ -28,7 +30,7 @@ export default function TaskDetail() {
 
   return (
     <Paper shadow="xs" p="xl" flex={1.5} h="85vh" mr="1em">
-      {flag && (
+      {task && (
         <Flex direction="column" h="100%">
           <Flex gap="1em">
             <Image
@@ -38,17 +40,21 @@ export default function TaskDetail() {
               height={180}
             />
             <Flex direction="column" justify="flex-end" gap="0.5em" ml="0.5em">
-              <Title order={4}>Task Title</Title>
+              <Title order={4}>{task.title}</Title>
               <Text>
                 Priority:{" "}
-                <span style={{ color: theme.colors.red[6] }}>Extreme</span>
+                <span style={{ color: theme.colors.red[6] }}>
+                  {task.priority}
+                </span>
               </Text>
               <Text>
                 Status:{" "}
-                <span style={{ color: theme.colors.red[6] }}>Not Started</span>
+                <span style={{ color: theme.colors.red[6] }}>
+                  {task.status}
+                </span>
               </Text>
               <Text c="gray" fz="sm">
-                Created on: 09/07/2025
+                Created on: {new Date(task.created_at).toLocaleDateString()}
               </Text>
             </Flex>
           </Flex>
@@ -56,24 +62,17 @@ export default function TaskDetail() {
           <Box mt="1em" c="gray.7" style={{ lineHeight: "20px" }}>
             <Text lh={2}>
               <strong>Task Title: </strong>
-              Document Submisstion
+              {task.title}
             </Text>
-            <Text lh={2}>
+            {/* <Text lh={2}>
               <strong>Objective: </strong>
               To submit required documents for something important
-            </Text>
+            </Text> */}
             <Text lh={2}>
               <strong>Task Description: </strong>
-              Review the list of documents required for submission and ensure
-              all necessary documents are ready. Organize the documents
-              accordingly and scan them if physical copies need to be submitted
-              digitally. Rename the scanned files appropriately for easy
-              identification and verify the accepted file formats. Upload the
-              documents securely to the designated platform, double-check for
-              accuracy, and obtain confirmation of successful submission. Follow
-              up if necessary to ensure proper processing.
+              {task.description}
             </Text>
-            <Text lh={2}>
+            {/* <Text lh={2}>
               <strong>Additional Notes: </strong>
             </Text>
             <List>
@@ -88,10 +87,10 @@ export default function TaskDetail() {
                 If there are specific guidelines or deadlines for submission,
                 adhere to them diligently.
               </List.Item>
-            </List>
+            </List> */}
             <Text lh={2}>
               <strong>Deadline for Submission: </strong>
-              End of Day
+              {task.date}
             </Text>
           </Box>
 
