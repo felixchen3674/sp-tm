@@ -1,13 +1,12 @@
-import { Page } from "@/components/Page"
-import AddNewTaskForm from "../../components/AddNewTaskForm"
+import { Page } from "@/components/Page";
 
-
-export default function AddTaskPage() {
+export default function TasksPage() {
   return (
-    <Page title="Add New Task">
-      <AddNewTaskForm />
+    <Page title="Tasks">
+      <div>Tasks Page</div>
+      <div>10000 lines of code</div>
     </Page>
-  )
+  );
 }
 
 
