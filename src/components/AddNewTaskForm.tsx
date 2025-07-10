@@ -48,7 +48,7 @@ export default function AddNewTaskForm({ onClose }: { onClose?: () => void }) {
     try {
       setIsSubmitting(true)
 
-      const response = await fetch("/api/tasks", {
+      const response = await fetch("/api/users/me/tasks", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
