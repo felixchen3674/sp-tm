@@ -7,6 +7,8 @@ import {
   Modal,
   Flex,
 } from "@mantine/core";
+import TaskStatusRow from "./TaskStatusRow";
+
 
 interface TaskStatus {
   id: number;
@@ -18,6 +20,8 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function TaskStatusTable() {
   const [taskStatuses, setTaskStatuses] = useState<TaskStatus[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [newStatus, setNewStatus] = useState("");
+  const [editStatusId, setEditStatusId] = useState<number | null>(null);
 
   useEffect(() => {
     fetchTaskStatuses();
@@ -30,6 +34,47 @@ export default function TaskStatusTable() {
     } catch (err) {
       console.error("Fetch error:", err);
     }
+  };
+
+  const handleAdd = async () => {
+    try {
+      await axios.post(`${API_URL}/task-statuses`, { name: newStatus });
+      resetForm();
+      fetchTaskStatuses();
+    } catch (err) {
+      console.error("Add error:", err);
+    }
+  };
+
+  const handleEdit = (status: TaskStatus) => {
+    setEditStatusId(status.id);
+    setNewStatus(status.name);
+    setModalOpen(true);
+  };
+
+  const handleUpdate = async () => {
+    try {
+      await axios.put(`${API_URL}/task-statuses/${editStatusId}`, { name: newStatus });
+      resetForm();
+      fetchTaskStatuses();
+    } catch (err) {
+      console.error("Update error:", err);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`${API_URL}/task-statuses/${id}`);
+      fetchTaskStatuses();
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
+  };
+
+  const resetForm = () => {
+    setNewStatus("");
+    setEditStatusId(null);
+    setModalOpen(false);
   };
 
   return (
@@ -50,9 +95,24 @@ export default function TaskStatusTable() {
           </tr>
         </thead>
         <tbody>
-      
+          {taskStatuses.map((status, index) => (
+            <TaskStatusRow
+              key={status.id}
+              status={status}
+              index={index}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
         </tbody>
       </Table>
+
+      <Modal
+        opened={modalOpen}
+        onClose={resetForm}
+        title={editStatusId ? "Edit Task Status" : "Add Task Status"}
+      >
+      </Modal>
     </Box>
   );
 }
