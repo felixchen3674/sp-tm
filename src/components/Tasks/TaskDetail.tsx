@@ -1,3 +1,5 @@
+import EditModal from "../TaskCard/EditModal";
+
 import Image from "next/image";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 
@@ -5,11 +7,13 @@ import {
   Box,
   Button,
   Flex,
+  Modal,
   Paper,
   Text,
   Title,
   useMantineTheme,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 import { TaskType } from "@/lib/entities/tasks";
 
@@ -19,6 +23,7 @@ interface TaskDeatilProps {
 
 export default function TaskDetail({ task }: TaskDeatilProps) {
   const theme = useMantineTheme();
+  const [isEditing, { open, close }] = useDisclosure(false);
 
   const handleDelete = () => {
     console.log("Delete function called");
@@ -26,6 +31,7 @@ export default function TaskDetail({ task }: TaskDeatilProps) {
 
   const handleEdit = () => {
     console.log("Edit function called");
+    open()
   };
 
   return (
@@ -109,6 +115,9 @@ export default function TaskDetail({ task }: TaskDeatilProps) {
           </Flex>
         </Flex>
       )}
+      <Modal opened={isEditing} onClose={close} title="Edit Task">
+        {task && <EditModal task={task} />}
+      </Modal>
     </Paper>
   );
 }
