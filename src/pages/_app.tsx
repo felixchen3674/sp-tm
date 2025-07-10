@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/core/styles.layer.css";
+import '@mantine/dates/styles.css';
 
 import Layout from "@/components/Layout/dashboard";
 import { store } from "@/lib/redux";

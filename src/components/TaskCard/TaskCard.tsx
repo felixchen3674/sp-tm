@@ -70,7 +70,9 @@ const TaskCard = ({ task }: { task: TaskType }) => {
           </span>
         </div>
       </div>
-      <CardMenu task={task}/>
+      <div className={styles.menu_block}>
+        <CardMenu task={task}/>
+      </div>
     </div>
     </Link>
   );
