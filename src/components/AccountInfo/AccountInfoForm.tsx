@@ -18,7 +18,7 @@ import { useForm } from "@mantine/form";
 
 import { User } from "@/lib/entities/users";
 import { AppDispatch, RootState } from "@/lib/redux";
-import { setUser, updateUser } from "@/lib/redux/userSlice";
+import { setUser } from "@/lib/redux/userSlice";
 import { createClient } from "@/lib/supabase/component";
 
 export default function AccountInfoForm() {
@@ -42,6 +42,8 @@ export default function AccountInfoForm() {
         value.trim().length > 0 ? null : "First name is required",
       lastName: value =>
         value.trim().length > 0 ? null : "Last name is required",
+      contactNumber: (value) =>
+      /^[0-9]*$/.test(value) ? null : "Contact number must be numeric",
     },
   });
 
@@ -79,22 +81,19 @@ export default function AccountInfoForm() {
 
   // Update form when user data is available
   useEffect(() => {
-    if (currentUser) {
-      form.setValues({
-        firstName: currentUser.firstName || "",
-        lastName: currentUser.lastName || "",
-        email: currentUser.email || "",
-        contactNumber: currentUser.contactNumber || "",
-        position: currentUser.position || "",
-      });
-    }
+    if (!currentUser) return;
+    form.setValues({
+      firstName: currentUser.firstName || "",
+      lastName: currentUser.lastName || "",
+      email: currentUser.email || "",
+      contactNumber: currentUser.contactNumber || "",
+      position: currentUser.position || "",
+    });
   }, [currentUser]);
 
   const handleSave = async (values: typeof form.values) => {
     try {
-      // Update Redux state
-      dispatch(updateUser(values));
-
+      // Update Supabase database (persistent)
       const { error } = await supabase.auth.updateUser({
         data: {
           firstName: values.firstName,
@@ -119,7 +118,6 @@ export default function AccountInfoForm() {
   const handleCancel = () => {
     router.push("/dashboard");
   };
-
 
   return (
     <Box maw={700} mx="auto" my="xl">
@@ -157,10 +155,7 @@ export default function AccountInfoForm() {
               {...form.getInputProps("firstName")}
             />
             <TextInput label="Last Name" {...form.getInputProps("lastName")} />
-            <TextInput
-              label="Email Address"
-              {...form.getInputProps("email")}
-            />
+            <TextInput label="Email Address" {...form.getInputProps("email")} />
             <TextInput
               label="Contact Number"
               {...form.getInputProps("contactNumber")}
