@@ -1,5 +1,7 @@
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
+import { useState } from "react";
+import { Notification } from "@mantine/core";
 
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
@@ -7,10 +9,9 @@ import { Page } from "@/components/Page";
 import { User } from "@/lib/entities/users";
 import { createClient } from "@/lib/supabase/server-props";
 import { paths } from "@/lib/utils/paths";
+import { ToastButton } from "@/lib/utils/ToastButton";
 
 export default function Dashboard({ user }: { user: User }) {
-  console.log("User data:", user);
-
   return (
     <Page title="Dashboard">
       <Head>
@@ -23,6 +24,12 @@ export default function Dashboard({ user }: { user: User }) {
         <h2>
           Welcome back, {user.firstName} {user.lastName}
         </h2>
+        <ToastButton
+          label="Show test notification"
+          title="Test Notification"
+          message="This is a test notification!"
+          color="blue"
+        />
       </div>
     </Page>
   );
@@ -58,3 +65,4 @@ function parseUser(user: SupabaseUser): User {
     avatarUrl: user.user_metadata.avatar_url || null,
   };
 }
+
