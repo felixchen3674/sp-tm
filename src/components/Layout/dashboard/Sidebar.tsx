@@ -11,6 +11,7 @@ import { NavLink, Stack } from "@mantine/core";
 
 import { LogoutButton } from "@/components/auth/LogoutButton";
 import { paths } from "@/lib/utils/paths";
+import { UserIcons } from "@/components/AccountInfo/UserIcons";
 
 interface MenuItem {
   name: string;
@@ -44,6 +45,7 @@ export const menu: MenuItem[] = [
 export default function Sidebar() {
   return (
     <Stack gap="xs">
+      <UserIcons/>
       {menu.map(item => (
         <NavLink
           key={item.name}
