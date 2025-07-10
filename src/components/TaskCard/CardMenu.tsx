@@ -1,33 +1,46 @@
-import React from 'react'
-import { Button, Menu } from '@mantine/core'
-import { TaskType } from '@/lib/entities/tasks'
-import styles from './taskcard.module.css'
+import styles from "./taskcard.module.css";
+
+import React from "react";
+
+import { Button, Menu, Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
+import { TaskType } from "@/lib/entities/tasks";
+import EditModal from "./EditModal";
+import { IconCheckbox, IconTrash, IconEdit } from "@tabler/icons-react";
 
 const CardMenu = ({ task }: { task: TaskType }) => {
+  const [opened, { open, close }] = useDisclosure(false);
+
   return (
     <div>
-        <Menu trigger='hover' position='right-start'>
+      <Modal
+        opened={opened}
+        onClose={close}
+        onClick={e => e.stopPropagation()}
+        title="Edit Task"
+        overlayProps={{
+            backgroundOpacity: 0.55,
+            blur: 3
+        }}>
+            <EditModal task={task} />
+        </Modal>
+
+      <Menu trigger="hover" position="right-start" transitionProps={{ transition: 'fade-up' }}>
         <Menu.Target>
-            <Button onClick={(e) => e.stopPropagation()} className={styles.menu}>...</Button>
+          <Button onClick={e => e.stopPropagation()} className={styles.menu}>
+            ...
+          </Button>
         </Menu.Target>
 
-        <Menu.Dropdown onClick={(e) => e.stopPropagation()}>
-            <Menu.Item>
-                Vital
-            </Menu.Item>
-            <Menu.Item>
-                Edit
-            </Menu.Item>
-            <Menu.Item>
-                Delete
-            </Menu.Item>
-            <Menu.Item>
-                Finish
-            </Menu.Item>
+        <Menu.Dropdown onClick={e => e.stopPropagation()}>
+          <Menu.Item leftSection={<IconCheckbox size={16}/>} color="green">Finish</Menu.Item>
+          <Menu.Item onClick={open} leftSection={<IconEdit size={16}/>}>Edit</Menu.Item>
+          <Menu.Item leftSection={<IconTrash size={16}/>} color="red">Delete</Menu.Item>
         </Menu.Dropdown>
-    </Menu>
+      </Menu>
     </div>
-  )
-}
+  );
+};
 
-export default CardMenu
+export default CardMenu;

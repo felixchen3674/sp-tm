@@ -87,7 +87,9 @@ const TaskCard = ({ task, onClick, isSelected }: TaskCardProps) => {
           </span>
         </div>
       </div>
-      <CardMenu task={task} />
+      <div className={styles.menu_block}>
+        <CardMenu task={task}/>
+      </div>
     </div>
   );
 };
