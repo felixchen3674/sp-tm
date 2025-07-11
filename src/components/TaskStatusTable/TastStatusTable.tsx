@@ -8,7 +8,7 @@ import {
   Flex,
 } from "@mantine/core";
 import TaskStatusRow from "./TaskStatusRow";
-
+import TaskStatusForm from "./TaskStatusForm";
 
 interface TaskStatus {
   id: number;
@@ -112,6 +112,12 @@ export default function TaskStatusTable() {
         onClose={resetForm}
         title={editStatusId ? "Edit Task Status" : "Add Task Status"}
       >
+        <TaskStatusForm
+          value={newStatus}
+          onChange={setNewStatus}
+          onSubmit={editStatusId ? handleUpdate : handleAdd}
+          onCancel={resetForm}
+        />
       </Modal>
     </Box>
   );
