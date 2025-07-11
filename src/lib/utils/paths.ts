@@ -6,6 +6,7 @@ export const paths = {
   dashboard: "/dashboard",
   vitalTasks: "/vital-tasks",
   tasks: "/tasks",
+  taskPriority: "/task-priority",
   settings: "/settings",
 };
 

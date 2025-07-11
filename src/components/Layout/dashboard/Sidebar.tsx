@@ -6,6 +6,7 @@ import { BiTask } from "react-icons/bi";
 import { FaExclamation } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
+import { MdOutlineLabelImportant } from "react-icons/md";
 
 import { NavLink, Stack } from "@mantine/core";
 
@@ -33,6 +34,11 @@ export const menu: MenuItem[] = [
     name: "My Tasks",
     href: paths.tasks,
     icon: BiTask,
+  },
+  {
+    name: "Task Priority Management",
+    href: paths.taskPriority,
+    icon: MdOutlineLabelImportant,
   },
   {
     name: "Setting",
